@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+	<!-- Webpage Title -->
+	<title>Hello, world!</title>
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!-- JS -->		
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<<!-- > -->
+	<style >
+		.Image{
+			
+			background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzg81wOB36lFaCyMQ-ZogV09-gnAX5WOl8wXc4XTOLyxl7h89_5A&s");
+			
+			background-size: cover;
+			background-position: center;
+
+			width: 300px;
+			height: 300px;
+			margin : auto;
+			padding: auto;
+
+		}
+		.BX1{
+			width: 600px;
+			height: 500px;
+			
+			padding: 10px 10px 10px 10px;
+			margin: auto;
+			align-items: center;
+			
+			
+
+		}
+		.BTN1{
+			width: 50px;
+			height: 40px;
+			margin:auto;
+
+
+		}
+		.CL1{
+			font-size: 30px;
+			font-weight: bold;
+
+		}
+		.SP1{
+			font-size: 20px; font-weight:normal;
+		}
+		.CL2{
+			font-size: 30px;
+			font-weight: bold;
+
+		}
+
+		.PB1 > button {
+			background-color: white; border-color:black; color:black;border-radius: 10px;
+		}
+
+		
+	</style>
+	
+	
+	
+
+</head>
+<script>
+	function CellPhone(p){
+		var regTel = /^(01[016789]{1}|070|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/;
+	// 전화 번호 입력 함수 
+	
+}
+
+function q1(){
+
+	let name =$('#name').val()
+	let count =$('#select').val()
+	let add = $('#add').val()
+	let num = $('#num').val()
+
+
+
+
+
+
+	if (name=='') {
+		alert('이름을 입력하세요')
+		$('#name').focus()
+	}
+	else if(count=='Choose...'){
+
+		alert('수량 선택하세요')
+		$('#select').focus();
+	}
+	else if(add==''){
+
+		alert('주소 입력하세요')
+		$('#add').focus();
+	}
+	else if (num=='')
+	{
+		alert('번호를 입력하세요')
+		$('#num').focus()
+
+	}
+	else if (!CellPhone(num))
+	{
+		alert('휴대폰 번호 입력 형식이 틀립니다 010-xxxx-xxxx형식으로 입력하세요.')
+		// 전화 번호 입력
+
+	}
+	else{
+		alert('주문 완료')
+	}
+
+}
+$(document).ready(function(){
+	listing();
+});
+
+function listing() {
+	$.ajax({
+		type: "GET",
+		url: "http://spartacodingclub.shop/order",
+		data: {},
+		success: function(response){
+			let order = response['orders'];
+			for (let i = 0 ; i < order.length; i++){
+				let cnt = order[i]['count'];
+				let name = order[i]['name']
+				let address= order[i]['address']
+				let phone = order[i]['phone']
+
+
+				let temp_html = '<tr>\
+					\
+					<td>'+name+'</td>\
+					<td>'+address+'</td>\
+					<td>'+cnt+'</td>\
+					<td>'+phone+'</td>\
+				</tr>'
+				$('#cl').append(temp_html);
+			}
+			
+		}
+	})
+}
+
+</script>	
+<body>
+	<div >
+		<div class="Image"></div>
+		<div>
+			<div class= "BX1">
+				<p class="CL1">콩 팝니다<span class="SP1"> 가격:100,000원/개 </span> </p>
+				<p>필요할지는 모르겠습니다</p>
+				<p class="CL2"> 주문확인</p> 
+
+				<div >	
+					<div class="input-group mb-3">
+						<div id ="name1"class="input-group-prepend">
+							<span class="input-group-text" >성함</span>
+						</div>
+						<input type="text" id ="name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+					</div>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<label class="input-group-text" for="inputGroupSelect01">수량</label>
+						</div>
+						<select class="custom-select" id="select">
+							<option selected>Choose...</option>
+							<option value="1">One</option>
+							<option value="2">Two</option>
+							<option value="3">Three</option>
+						</select>
+					</div>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" >주소</span>
+						</div>
+						<input type="text" id="add" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+					</div>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" >번호</span>
+						</div>
+						<input type="text" id="num" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+
+					</div>
+				</div>
+
+
+				<div class="BTN1">
+					<p class="PB1">
+						<button type="button" class="btn btn-primary" onclick="q1()"> 주문하기</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					
+					<th scope="col">이름</th>
+					<th scope="col">주소</th>
+					<th scope="col">수량</th>
+					<th scope="col">전화번호</th>
+				</tr>
+			</thead>
+			<tbody id ='cl'>
+				
+
+			</tbody>
+		</table>
+		
+	</div>
+
+
+	
+
+
+
+</body>
+
+</html>
